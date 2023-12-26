@@ -1,23 +1,19 @@
 package com.hyeon.jpaboard.service;
 
 import com.hyeon.jpaboard.domain.Post;
-import com.hyeon.jpaboard.service.serviceImpl.PostSaveDto;
+import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostSaveDto;
+import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
+import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostListResponse;
+import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface PostService {
-    Optional<Post> findPost(Long id);
-    List<Post> findPostAll();
-
-    List<Post> findPostByCreateAt(LocalDateTime createAt);
-
-    List<Post> findPostByTagsCount(Long tagCount);
-
-    List<Post> findByViewsCount(Long viewsCount);
-
-    Long savePost(PostSaveDto postSaveDto)
-    Long updatePost(Long id);
+    Post findPost(Long id);
+    PostResponse findMemberNameWithPost(Long id);
+    List<PostListResponse> findPostAll();
+    Post savePost(PostSaveDto postSaveDto);
+    Long updatePost(PostUpdateDto postUpdateDto);
     void deletePost(Long id);
 }
