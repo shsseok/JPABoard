@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @AllArgsConstructor
@@ -20,12 +22,4 @@ public class MemberSaveDto {
     @NotEmpty(message = "비밀번호 입력은 필수 입니다.")
     private String password;
 
-    public Member toEntity(Member member)
-    {
-        return member.builder()
-                .memberEmail(email)
-                .memberPassword(password)
-                .memberName(username)
-                .build();
-    }
 }

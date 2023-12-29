@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-
-    @GetMapping("/register")
+    @GetMapping("/registerForm")
     public String memberForm(Model model)
     {
         model.addAttribute("memberForm",new MemberSaveDto());

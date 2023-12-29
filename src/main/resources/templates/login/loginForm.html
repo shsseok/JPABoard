@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 페이지</title>
+</head>
+<body>
+<h1>로그인</h1>
+<form action="/auth/login" method="post" >
+  <label for="email">이메일:</label>
+  <input type="email" id="email" name="email" ><br>
+  <label for="password">비밀번호:</label>
+  <input type="password" id="password" name="password" ><br>
+  <input type="submit" value="로그인">
+</form>
+<!-- 홈으로 돌아가는 링크 -->
+<p><a href="/" style="margin-top: 20px;">홈으로 돌아가기</a></p>
+</body>
+</html>

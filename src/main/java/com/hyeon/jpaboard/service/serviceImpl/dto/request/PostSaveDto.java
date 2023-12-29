@@ -8,7 +8,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class PostSaveDto {
     @NotNull
