@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시물 목록</title>
 </head>
 <body>
+<h1>게시물 목록</h1>
 
+<table border="1">
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 게시물 목록을 표시하는 부분 -->
+    <tr th:each="post, postStat : ${postList}">
+        <td th:text="${postStat.index + 1}"></td>
+        <td><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}"></a></td>
+        <td th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 홈으로 돌아가는 링크 -->
+<p><a href="/" style="margin-top: 20px;">홈으로 돌아가기</a></p>
 </body>
 </html>

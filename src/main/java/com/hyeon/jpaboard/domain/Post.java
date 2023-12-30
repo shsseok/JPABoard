@@ -22,7 +22,6 @@ public class Post {
     private String postTitle;
     @Lob
     private String postContent;
-    private Long postViews;
     @Embedded
     private CommonDate commonDate;
     @Builder
@@ -30,7 +29,6 @@ public class Post {
         this.member = member;
         this.postTitle = postTitle;
         this.postContent = postContent;
-        this.postViews=0L;
         this.commonDate=CommonDate.builder()
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
