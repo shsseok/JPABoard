@@ -1,5 +1,6 @@
 package com.hyeon.jpaboard.exception.handle;
 
+import com.hyeon.jpaboard.exception.LikeDuplicateException;
 import com.hyeon.jpaboard.exception.ResponseStatusException;
 import com.hyeon.jpaboard.exception.TagDuplicateException;
 import org.springframework.dao.DataAccessException;
@@ -15,10 +16,10 @@ import java.nio.charset.StandardCharsets;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(TagDuplicateException.class)
-    public String handleTagDuplicateException(Model model,TagDuplicateException ex)
+    @ExceptionHandler({TagDuplicateException.class, LikeDuplicateException.class})
+    public String handleTagDuplicateException(Model model,RuntimeException ex)
     {
-        Long postId = ex.getPostId();
+
         model.addAttribute("exception",ex.getMessage());
         return "error/500error";
     }

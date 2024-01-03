@@ -9,6 +9,7 @@ import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
 import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Slf4j
 public class PostController {
     private final PostService postService;
 
@@ -27,6 +29,7 @@ public class PostController {
     public String postList(Model model)
     {
         List<PostResponse> postList = postService.findPostAll();
+        log.info("postList={}",postList.size());
         model.addAttribute("postList",postList);
         return "post/postList";
     }

@@ -1,8 +1,7 @@
 package com.hyeon.jpaboard.service;
 
-import com.hyeon.jpaboard.service.serviceImpl.dto.request.LikeDto;
 
 public interface LikesService {
-    void choiceLike(LikeDto likeDto);
-    void deleteLike(LikeDto likeDto);
+    void choiceLike(Long postId,String memberEamil);
+    void deleteLike(Long postId,String memberEamil);
 }

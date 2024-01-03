@@ -7,6 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,8 @@ public class Post {
     private CommonDate commonDate;
 
     private Long postViews;
+    @OneToMany(mappedBy = "post")
+    private List<Likes> likesList=new ArrayList<>();
     @Builder
     public Post(Member member, String postTitle, String postContent) {
         this.member = member;
