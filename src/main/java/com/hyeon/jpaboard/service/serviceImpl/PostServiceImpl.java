@@ -6,17 +6,17 @@ import com.hyeon.jpaboard.exception.PostNotFoundException;
 import com.hyeon.jpaboard.exception.UserNotFoundException;
 import com.hyeon.jpaboard.repository.MemberRepository;
 import com.hyeon.jpaboard.repository.PostRepository;
+import com.hyeon.jpaboard.repository.TagRepository;
 import com.hyeon.jpaboard.service.PostService;
 import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostSaveDto;
 import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
-import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostListResponse;
 import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,19 +25,23 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final TagRepository tagRepository;
     @Override
     @Transactional
-    public Post savePost(PostSaveDto postSaveDto) {;
-        Member findMember = memberRepository.findById(postSaveDto.getMemberId()).orElseThrow(() -> new UserNotFoundException("해당하는 유저가 없습니다."));
+    public Post savePost(PostSaveDto postSaveDto,String memberEmail) {;
+        Member findMember = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new UserNotFoundException("해당하는 유저가 없습니다."));
         Post post = PostSaveDto.toEntity(postSaveDto, findMember);
         Post savedPost = postRepository.save(post);
         return savedPost;
     }
     @Override
-    public PostResponse findMemberNameWithPost(Long id) {
+    public PostResponse findMemberNameWithPost(Long id,String memberEmail) {
+        Member findMember = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new UserNotFoundException("해당하는 유저가 없습니다."));
+        Boolean isTag = tagRepository.existsByPostIdAndMember(id, findMember);
         return postRepository.findById(id)
                 .map(post -> PostResponse.toDto(post)
                 )
+                .map(postResponse -> postResponse.setTag(isTag))
                 .orElseThrow(() -> new PostNotFoundException("해당하는 게시물이 없습니다."));
     }
     @Override
@@ -47,17 +51,19 @@ public class PostServiceImpl implements PostService {
         return post;
     }
     @Override
-    public List<PostListResponse> findPostAll()
+    public List<PostResponse> findPostAll()
     {
+
         return postRepository.findAll().stream()
-                .map(post -> PostListResponse.toDto(post))
+                .map(post -> PostResponse.toDto(post))
                 .collect(Collectors.toList());
     }
     @Override
     @Transactional
-    public Long updatePost(PostUpdateDto postUpdateDto)
+    public Long updatePost(PostUpdateDto postUpdateDto,Long postId)
     {
-        Post updatePost = postRepository.findById(postUpdateDto.getPostId())
+
+        Post updatePost = postRepository.findById(postId)
                 .map(post -> post.updatePost(postUpdateDto))
                 .orElseThrow(() -> new PostNotFoundException("해당하는 게시물이 없습니다."));
         return  updatePost.getId();

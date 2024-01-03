@@ -12,4 +12,6 @@ import java.util.Optional;
 @Repository
 public interface TagRepository extends JpaRepository<Tag,Long> {
     Optional<Tag> findByMemberAndPost(Member member, Post post);
+    Boolean existsByPostIdAndMember(Long postId,Member member);
+
 }

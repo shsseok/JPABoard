@@ -36,8 +36,8 @@ public class Post {
     }
     public Post updatePost(PostUpdateDto postUpdateDto)
     {
-            this.id=postUpdateDto.getPostId();
             this.postContent=postUpdateDto.getPostContent();
+            commonDate.changeUpdateDate(LocalDateTime.now());
             return this;
     }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 상세 페이지</title>
+</head>
+<body>
+<div class="post-container">
+    <h1 class="post-title">게시물 상세 페이지</h1>
+
+    <!-- 게시물 내용 -->
+    <div class="post-content">
+
+        제목<p th:text="${postResponse.postTitle}"></p>
+        내용<p th:text="${postResponse.postContent}"></p>
+        만든 날짜<p th:text="${postResponse.createDate}">만든 날짜</p>
+        수정 날짜<p th:text="${postResponse.updateDate}">수정 날짜</p>
+    </div>
+    <div th:if="${postResponse.isTag}">
+        <!-- 태그가 되어 있을 때 -->
+        <a th:href="@{/tag/cancel/{postId}(postId=${postResponse.postId})}">
+            <button style="background-color: red;">태그취소하기</button>
+        </a>
+    </div>
+    <div th:unless="${postResponse.isTag}">
+        <!-- 태그가 되어 있지 않을 때 -->
+        <a th:href="@{/tag/{postId}(postId=${postResponse.postId})}">
+        <button style="background-color: blue;">태그하기</button>
+            </a>
+    </div>
+    <div th:if="${param.errrorMessage}" class="error-message">
+        <p th:text="${param.errorMessage}"></p>
+    </div>
+    <!-- 홈으로 돌아가는 링크 -->
+    <div class="back-link">
+        <a href="/post/postlist">게시판 리스트 보기</a>
+    </div>
+</div>
+</body>
+</html>

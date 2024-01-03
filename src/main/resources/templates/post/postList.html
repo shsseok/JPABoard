@@ -10,17 +10,30 @@
 <table border="1">
     <thead>
     <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성일</th>
+        <th>게시판 제목</th>
+        <th>게시판 내용</th>
+        <th>게시판 작성자</th>
+        <th>만든 날짜</th>
+        <th>수정 날짜</th>
     </tr>
     </thead>
     <tbody>
     <!-- 게시물 목록을 표시하는 부분 -->
-    <tr th:each="post, postStat : ${postList}">
-        <td th:text="${postStat.index + 1}"></td>
-        <td><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}"></a></td>
-        <td th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+    <tr th:each="post : ${postList}">
+        <td>게시판 제목<a th:href="@{'/post/' + ${post.postId}}" th:text="${post.postTitle}"></a></td>
+        <td th:text="${post.postContent}">게시판 내용</td>
+        <td th:text="${post.postWriter}">게시판 작성자</td>
+        <td th:text="${post.createDate}">만든 날짜</td>
+        <td th:text="${post.updateDate}">수정 날짜</td>
+        <td>
+            <a th:href="@{/post/edit/{postId}(postId=${post.postId})}">
+                <button>수정</button>
+            </a>
+            <a th:href="@{/post/delete/{postId}(postId=${post.postId})}">
+                <button>삭제</button>
+            </a>
+        </td>
+
     </tr>
     </tbody>
 </table>

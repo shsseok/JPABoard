@@ -20,12 +20,14 @@ public class Member {
     private String memberPassword;
     private String memberName;
 
+    private String role;
     @OneToMany(mappedBy = "member")
     List<Post> postList=new ArrayList<>();
     @Builder
-    public Member(String memberEmail, String memberPassword, String memberName) {
+    public Member(String memberEmail, String memberPassword, String memberName,String role) {
         this.memberEmail = memberEmail;
         this.memberPassword = memberPassword;
         this.memberName = memberName;
+        this.role=role;
     }
 }

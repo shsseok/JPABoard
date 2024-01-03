@@ -20,5 +20,11 @@ public class Tag {
     @JoinColumn(name = "post_id")
     private Post post;
 
-
+    public static Tag createTag(Member member,Post post)
+    {
+        return Tag.builder()
+                .member(member)
+                .post(post)
+                .build();
+    }
 }
