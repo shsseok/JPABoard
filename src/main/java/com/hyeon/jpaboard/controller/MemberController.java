@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/register")
+    @GetMapping("/register-form")
     public String memberForm(Model model)
     {
         model.addAttribute("memberForm",new MemberSaveDto());
         return "members/memberForm";
     }
     @PostMapping("/register")
-    public String memberForm(@Valid @ModelAttribute("memberForm")  MemberSaveDto memberSaveDto , BindingResult bindingResult)
+    public String memberRegister(@Valid @ModelAttribute("memberForm")  MemberSaveDto memberSaveDto , BindingResult bindingResult)
     {
         if (bindingResult.hasErrors())
         {

@@ -8,11 +8,9 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class PostSaveDto {
-    @NotNull
-    private Long memberId;
     @NotEmpty(message = "제목을 입력하세요.")
     @Length(min = 0,max = 10 ,message = "제목은 공백포함 10자 이내로 완성해야 합니다.")
     private String postTitle;

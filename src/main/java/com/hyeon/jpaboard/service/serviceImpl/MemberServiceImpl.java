@@ -7,6 +7,7 @@ import com.hyeon.jpaboard.repository.MemberRepository;
 import com.hyeon.jpaboard.service.MemberService;
 import com.hyeon.jpaboard.service.serviceImpl.dto.request.MemberSaveDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     @Transactional
     public Long saveMember(MemberSaveDto memberSaveDto) {
        memberRepository.findByMemberEmail(memberSaveDto.getEmail())
                .ifPresent(member -> {throw new UserEmailDuplicateException("이메일이 중복 되었습니다");
                });
-       Member member = memberSaveDto.toEntity(new Member());
+       memberSaveDto.setPassword(bCryptPasswordEncoder.encode(memberSaveDto.getPassword()));
+       Member member = memberSaveDto.toEntity(memberSaveDto);
        Member saveMember = memberRepository.save(member);
        return saveMember.getId();
     }

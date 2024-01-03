@@ -20,12 +20,13 @@ public class MemberSaveDto {
     @NotEmpty(message = "비밀번호 입력은 필수 입니다.")
     private String password;
 
-    public Member toEntity(Member member)
+    public Member toEntity(MemberSaveDto memberSaveDto)
     {
-        return member.builder()
-                .memberEmail(email)
-                .memberPassword(password)
-                .memberName(username)
+        return Member.builder()
+                .memberEmail(memberSaveDto.getEmail())
+                .memberPassword(memberSaveDto.getPassword())
+                .memberName(memberSaveDto.getUsername())
+                .role("ROLE_USER")
                 .build();
     }
 }
