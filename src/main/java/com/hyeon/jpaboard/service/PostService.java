@@ -13,5 +13,7 @@ public interface PostService {
     List<PostResponse> findPostAll();
     Post savePost(PostSaveDto postSaveDto,String memberEmail);
     Long updatePost(PostUpdateDto postUpdateDto,Long postId);
+
+    void updateView(Long postId);
     void deletePost(Long id);
 }

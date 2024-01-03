@@ -9,7 +9,6 @@ import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
 import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +37,14 @@ public class PostController {
         return "post/postForm";
     }
     @GetMapping("/{postId}")
-    public String postDetailForm(@PathVariable("postId") Long postId,Model model,@AuthenticationPrincipal CustomMemberDetails customMemberDetails)
+    public String postDetailForm(@PathVariable("postId") Long postId,Model model
+            ,@AuthenticationPrincipal CustomMemberDetails customMemberDetails
+                ,@RequestParam(required = false, name = "isView") String isView)
     {
+        if("ok".equals(isView))
+        {
+            postService.updateView(postId);
+        }
         PostResponse postResponse = postService.findMemberNameWithPost(postId,customMemberDetails.getUsername());
         model.addAttribute("postResponse",postResponse);
         return "post/DetailPostForm";
@@ -92,6 +97,10 @@ public class PostController {
 
         return "redirect:/post/postlist";
     }
+/*    @PostMapping("/postlist/search")
+    public String postForm()
+    {
 
+    }*/
 
 }

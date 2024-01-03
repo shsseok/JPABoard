@@ -24,11 +24,14 @@ public class Post {
     private String postContent;
     @Embedded
     private CommonDate commonDate;
+
+    private Long postViews;
     @Builder
     public Post(Member member, String postTitle, String postContent) {
         this.member = member;
         this.postTitle = postTitle;
         this.postContent = postContent;
+        this.postViews=0L;
         this.commonDate=CommonDate.builder()
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
@@ -40,7 +43,10 @@ public class Post {
             commonDate.changeUpdateDate(LocalDateTime.now());
             return this;
     }
-
+    public void upPostView(Post post)
+    {
+      this.postViews=post.getPostViews()+1;
+    }
 
     @Override
     public boolean equals(Object o) {

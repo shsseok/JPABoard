@@ -2,7 +2,6 @@ package com.hyeon.jpaboard.exception;
 
 public class ResponseStatusException extends RuntimeException{
     public ResponseStatusException() {
-        super();
     }
 
     public ResponseStatusException(String message) {
