@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>서버쪽오류</title>
 </head>
 <body>
+<h1>문제 발생</h1>
+
+<div th:text="${exception}"></div>
+<div th:if="${postId}" >
+    <a th:href="@{/post/{postId}(postId=${postId})}"><button>게시물로 돌아가기</button></a>
+</div>
+<div th:if="${postId}" >
+    <a th:href="@{/post/postlist}"><button>게시물목록 보러가기</button></a>
+</div>
 
 </body>
 </html>

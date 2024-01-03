@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>404에러 페이지</title>
+  <meta charset="UTF-8">
+  <title>클라이언트오류</title>
 </head>
 <body>
-<div class="errorPage">
-  <span class="errorHead">404에러 페이지</span><br />
-  <p th:text="${'path: ' + path}"></p>
-  <p th:text="${'status: ' + status}"></p>
-  <p th:text="${'timestamp: ' + timestamp}"></p>
-  <p th:text="${'error: ' + error}"></p>
-  <p th:text="${'errors: ' + errors}"></p>
-  <p th:text="${'exception: ' + exception}"></p>
-  <p th:text="${'message: ' + message}"></p>
-  <p th:text="${'trace: ' + trace}"></p>
-</div>
+<h1>문제 발생</h1>
+
+<div th:text="${exception}"></div>
+<a href="/"><button>다시 게시물로 돌아가기</button></a>
+
+
 </body>
 </html>

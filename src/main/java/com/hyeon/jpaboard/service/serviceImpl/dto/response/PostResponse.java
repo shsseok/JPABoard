@@ -14,6 +14,7 @@ public class PostResponse {
     private String postWriter;
     private String postTitle;
     private String postContent;
+    private Long postViews;
     private Boolean isTag;//해당 게시물을 태그를 했는지 안했는지
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -33,6 +34,7 @@ public class PostResponse {
                 .postWriter(post.getMember().getMemberName())
                 .createDate(post.getCommonDate().getCreateDate())
                 .updateDate(post.getCommonDate().getUpdateDate())
+                .postViews(post.getPostViews())
                 .build();
     }
 
