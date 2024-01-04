@@ -36,7 +36,8 @@ public class TagServiceImpl implements TagService {
         {
             throw new TagDuplicateException("이미 게시물을 태그하고 있습니다",postId);
         }
-        Tag tag = Tag.createTag(member, post);
+        Tag tag = Tag.createTag(member);
+        tag.setPost(post);
         tagRepository.save(tag);
     }
 

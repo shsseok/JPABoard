@@ -37,7 +37,9 @@ public class LikeServiceImpl implements LikesService {
         {
             throw new LikeDuplicateException("이미 좋아요를 하였습니다.");
         }
-        likeRepository.save(Likes.createLikes(member,post));
+        Likes likes = Likes.createLikes(member);
+        likes.setPost(post);
+        likeRepository.save(likes);
 
     }
 

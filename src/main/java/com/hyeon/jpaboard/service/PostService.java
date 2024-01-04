@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PostService {
     Post findPost(Long id);
-   
+    List<PostResponse> findSortPostList(String sortMethod);
     PostResponse findMemberNameWithPost(Long id,String memberEmail);
     List<PostResponse> findPostAll();
     Post savePost(PostSaveDto postSaveDto,String memberEmail);

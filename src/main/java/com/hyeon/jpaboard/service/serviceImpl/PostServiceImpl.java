@@ -4,10 +4,7 @@ import com.hyeon.jpaboard.domain.Member;
 import com.hyeon.jpaboard.domain.Post;
 import com.hyeon.jpaboard.exception.PostNotFoundException;
 import com.hyeon.jpaboard.exception.UserNotFoundException;
-import com.hyeon.jpaboard.repository.LikeRepository;
-import com.hyeon.jpaboard.repository.MemberRepository;
-import com.hyeon.jpaboard.repository.PostRepository;
-import com.hyeon.jpaboard.repository.TagRepository;
+import com.hyeon.jpaboard.repository.*;
 import com.hyeon.jpaboard.service.PostService;
 import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostSaveDto;
 import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
@@ -30,6 +27,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final TagRepository tagRepository;
     private final LikeRepository likeRepository;
+    private final PostFilterRepository postFilterRepository;
 
     @Override
     @Transactional
@@ -94,5 +92,10 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("해당하는 게시물이 없습니다."));
         post.upPostView(post);
     }
-
+    @Override
+    public List<PostResponse> findSortPostList(String sortMethod) {
+       return postFilterRepository.findSortAllList(sortMethod).stream()
+                .map(PostResponse::toDto)
+                .collect(Collectors.toList());
+    }
 }

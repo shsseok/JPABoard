@@ -12,4 +12,10 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("SELECT p,m FROM Post p " +
             "JOIN FETCH p.member m")
     List<Post> findAllWithMembers();
+
+
+
+
+
+
 }

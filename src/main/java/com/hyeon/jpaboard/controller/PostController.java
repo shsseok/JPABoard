@@ -100,10 +100,13 @@ public class PostController {
 
         return "redirect:/post/postlist";
     }
-/*    @PostMapping("/postlist/search")
-    public String postForm()
+    @GetMapping("/postlist/sort")
+    public String postSortList(Model model,@RequestParam("sortMethod") String sortMethod)
     {
 
-    }*/
+        List<PostResponse> sortPostList = postService.findSortPostList(sortMethod);
+        model.addAttribute("postList",sortPostList);
+        return "post/postList";
+    }
 
 }

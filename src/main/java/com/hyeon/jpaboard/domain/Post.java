@@ -30,14 +30,16 @@ public class Post {
     private Long postViews;
     @OneToMany(mappedBy = "post")
     private List<Likes> likesList=new ArrayList<>();
+    @OneToMany(mappedBy = "post")
+    private List<Tag> tagList=new ArrayList<>();
     @Builder
-    public Post(Member member, String postTitle, String postContent) {
+    public Post(Member member, String postTitle, String postContent,LocalDateTime localDateTime) {
         this.member = member;
         this.postTitle = postTitle;
         this.postContent = postContent;
         this.postViews=0L;
         this.commonDate=CommonDate.builder()
-                .createDate(LocalDateTime.now())
+                .createDate(localDateTime)
                 .updateDate(LocalDateTime.now())
                 .build();
     }
