@@ -18,7 +18,7 @@ public class PostFilterRepository {
     {
         String sql = "select p from "
                     +"Post p "
-                    +"join fetch p.member m"
+                    +"join fetch p.member m "
                     +"order by ";
 
         if(sortMethod.equals("DATE"))
@@ -30,14 +30,13 @@ public class PostFilterRepository {
         }
         else if (sortMethod.equals("TAG"))
         {
-            sql="select  from "
-                    +"Post p "
-                    +"join fetch p.tagList l"
-                    +"order b"
+            sql = "select p from Tag t " +
+                    "join t.post p " +
+                    "order by p.id";
         }
         else
         {
-            sql+=""
+
         }
         List<Post> resultList = em.createQuery(sql, Post.class).getResultList();
         return  resultList;
