@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,18 +23,30 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
-    private String reviewTitle;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
     private String reviewContent;
-    private Long reviewViews;
     @Embedded
     private CommonDate commonDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_review_id")
+    private Review parent;
+    @OneToMany(mappedBy = "parent",cascade = CascadeType.REMOVE)
+    private List<Review> child=new ArrayList<>();
+
+    public void setParent(Review review)
+    {
+        this.parent=review;
+        review.getChild().add(this);
+    }
+
     @Builder
-    public Review(Post post, String reviewTitle, String reviewContent, Long reviewViews, CommonDate commonDate) {
+    public Review(Post post,String reviewContent,Member member) {
         this.post = post;
-        this.reviewTitle = reviewTitle;
+        this.member=member;
         this.reviewContent = reviewContent;
-        this.reviewViews = 0L;
         this.commonDate = CommonDate.builder()
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())

@@ -30,13 +30,20 @@ public class PostFilterRepository {
         }
         else if (sortMethod.equals("TAG"))
         {
-            sql = "select p from Tag t " +
-                    "join t.post p " +
-                    "order by p.id";
+            sql = "SELECT p FROM Tag t JOIN t.post p " +
+                    "join fetch p.member m " +
+                    "GROUP BY p ORDER BY COUNT(t) DESC";
+
+        }
+        else if(sortMethod.equals("LIKE"))
+        {
+            sql = "SELECT p FROM Likes l JOIN l.post p " +
+                    "join fetch p.member m " +
+                    "GROUP BY p ORDER BY COUNT(l) DESC";
         }
         else
         {
-
+            sql="select p FROM Post p JOIN FETCH p.member m";
         }
         List<Post> resultList = em.createQuery(sql, Post.class).getResultList();
         return  resultList;

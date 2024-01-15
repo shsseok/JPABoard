@@ -1,27 +1,55 @@
 package com.hyeon.jpaboard.service.serviceImpl.dto.response;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.hyeon.jpaboard.domain.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.ToString;
 
-@ToString
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
-@Builder
+@Data
 public class ReviewResponse {
     private Long reviewId;
-    private String reviewTitle;
+    private Long parentId;
+    private String reviewWriter;
     private String reviewContent;
-    private Long reviewViews;
+    private List<ReviewResponse> childList;
 
-    public static ReviewResponse toDto(Review review)
+
+  public ReviewResponse(Review review)
+  {
+      this.reviewId=review.getId();
+      this.reviewWriter=review.getMember().getMemberName();
+      this.reviewContent=review.getReviewContent();
+      if(review.getParent()!=null)
+      {
+            this.parentId=review.getParent().getId();
+      }
+      else
+      {
+            this.parentId=null;
+      }
+      this.childList=review.getChild().stream()
+              .map(child -> new ReviewResponse(child))
+              .collect(Collectors.toList());
+  }
+
+
+
+
+
+  /*  public static ReviewResponse toDto(Review review)
     {
         return ReviewResponse.builder()
-                .reviewTitle(review.getReviewTitle())
                 .reviewId(review.getId())
+                .reviewWriter(review.getMember().getMemberName())
+                .reviewList(review.getChild())
                 .reviewContent(review.getReviewContent())
-                .reviewViews(review.getReviewViews())
                 .build();
-    }
+    }*/
 }

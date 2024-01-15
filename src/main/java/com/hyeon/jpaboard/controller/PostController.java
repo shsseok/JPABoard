@@ -29,14 +29,16 @@ public class PostController {
     public String postList(Model model)
     {
         List<PostResponse> postList = postService.findPostAll();
+
         log.info("postList={}",postList.size());
+        model.addAttribute("sortMethod","LIST");
         model.addAttribute("postList",postList);
         return "post/postList";
     }
     @GetMapping("/add")
     public String postForm(Model model)
     {
-        model.addAttribute("postForm",new PostSaveDto());
+        model.addAttribute("postSaveDto",new PostSaveDto());
         return "post/postForm";
     }
     @GetMapping("/{postId}")
@@ -87,11 +89,11 @@ public class PostController {
         return "redirect:/post/postlist";
     }
     @PostMapping("/add")
-    public String postForm(@AuthenticationPrincipal CustomMemberDetails customMemberDetails, @Valid @ModelAttribute("postForm") PostSaveDto postSaveDto , BindingResult bindingResult)
+    public String postForm(@AuthenticationPrincipal CustomMemberDetails customMemberDetails, @Valid @ModelAttribute("postSaveDto") PostSaveDto postSaveDto , BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
         {
-            return "redirect:/post/add";
+            return "/post/postForm";
         }
         if (customMemberDetails!=null)
         {
@@ -105,6 +107,7 @@ public class PostController {
     {
 
         List<PostResponse> sortPostList = postService.findSortPostList(sortMethod);
+        model.addAttribute("sortMethod",sortMethod);
         model.addAttribute("postList",sortPostList);
         return "post/postList";
     }

@@ -26,12 +26,13 @@ public class Post {
     private String postContent;
     @Embedded
     private CommonDate commonDate;
-
     private Long postViews;
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<Likes> likesList=new ArrayList<>();
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<Tag> tagList=new ArrayList<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Review> reviewList=new ArrayList<>();
     @Builder
     public Post(Member member, String postTitle, String postContent,LocalDateTime localDateTime) {
         this.member = member;

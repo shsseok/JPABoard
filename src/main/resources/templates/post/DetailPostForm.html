@@ -46,6 +46,12 @@
     <div class="back-link">
         <a href="/post/postlist">게시판 리스트 보기</a>
     </div>
+    <div class="back-link">
+        <a th:href="@{/review/{postId}/add(postId=${postResponse.postId})}">리뷰 작성하러 가기</a>
+    </div>
+    <div class="back-link">
+        <a th:href="@{/review/{postId}/reviewlist(postId=${postResponse.postId})}">해당 게시판 리뷰 목록 보러가기</a>
+    </div>
 </div>
 </body>
 </html>

@@ -46,14 +46,15 @@
     <div>정렬방식</div>
     <form action="/post/postlist/sort" method="get">
         <select class="form-select" id="sortMethod" name="sortMethod" onchange="this.form.submit()">
-            <option value="">==정렬 방식 선택==</option>
-            <option value="DATE">최신순</option>
-            <option value="VIEW">조회수 순</option>
-            <option value="LIKE">좋아요 순</option>
-            <option value="TAG">태그 많은 순</option>
+            <option value="" th:selected="${sortMethod == null || sortMethod.isEmpty()}">==정렬 방식 선택==</option>
+            <option value="DATE" th:selected="${sortMethod.equals('DATE')}">최신순</option>
+            <option value="VIEW" th:selected="${sortMethod.equals('VIEW')}">조회수 순</option>
+            <option value="LIKE" th:selected="${sortMethod.equals('LIKE')}">좋아요 순</option>
+            <option value="TAG" th:selected="${sortMethod.equals('TAG')}">태그 많은 순</option>
         </select>
     </form>
 </div>
+
 
 
 <!-- 홈으로 돌아가는 링크 -->

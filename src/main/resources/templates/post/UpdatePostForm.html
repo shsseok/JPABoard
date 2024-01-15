@@ -10,7 +10,7 @@
 <form method="post" th:object="${postUpdateDto}">
   <label for="content">내용</label><br>
   <textarea id="content" name="content" th:field="*{postContent}" rows="5" cols="40"></textarea><br><br>
-  <p th:if="${#fields.hasErrors('postContent')}" th:errors="*{postContent}">유효하지 않은 내용입니다.</p>
+  <p th:if="${#fields.hasErrors('postContent')}" th:errors="*{postContent}"></p>
   <input type="submit" value="수정하기">
 </form>
 

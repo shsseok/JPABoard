@@ -3,6 +3,7 @@ package com.hyeon.jpaboard;
 import com.hyeon.jpaboard.domain.Member;
 
 import com.hyeon.jpaboard.domain.Post;
+import com.hyeon.jpaboard.domain.Review;
 import com.hyeon.jpaboard.repository.MemberRepository;
 import com.hyeon.jpaboard.repository.PostRepository;
 import jakarta.annotation.PostConstruct;
@@ -84,6 +85,7 @@ public class InitDB {
             em.persist(post4);
             em.flush();
             em.clear();
+
 
         }
 
