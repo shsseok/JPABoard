@@ -16,12 +16,18 @@ public class PostResponse {
     private String postContent;
     private Long postViews;
     private Boolean isTag;//해당 게시물을 태그를 했는지 안했는지
+    private Boolean isLike;//해당 게시물에 좋아요가 되어져 있는지
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
     public PostResponse setTag(Boolean isTag)
     {
         this.isTag=isTag;
+        return this;
+    }
+    public PostResponse setLike(Boolean isLike)
+    {
+        this.isLike=isLike;
         return this;
     }
 

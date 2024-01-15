@@ -23,4 +23,15 @@ public class Likes {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    public static Likes createLikes(Member member)
+    {
+        return Likes.builder()
+                .member(member)
+                .build();
+    }
+    public void setPost(Post post)
+    {
+        this.post=post;
+        post.getLikesList().add(this);
+    }
 }

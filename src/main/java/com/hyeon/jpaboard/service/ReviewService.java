@@ -9,8 +9,10 @@ import com.hyeon.jpaboard.service.serviceImpl.dto.response.ReviewResponse;
 import java.util.List;
 
 public interface ReviewService {
-    Long saveReview(ReviewSaveDto reviewSaveDto);
+    Long saveReview(ReviewSaveDto reviewSaveDto,Long postId,String memberEmail);
     Long updateReview(ReviewUpdateDto reviewUpdateDto);
-    List<ReviewResponse> findReviewLists();
+    List<ReviewResponse> findReviewLists(Long postId);
     void deleteReview(Long id);
+
+
 }

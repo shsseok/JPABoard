@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 리뷰 목록</title>
+</head>
+<body>
+<h1>게시물 리뷰 목록</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>리뷰 작성자</th>
+    <th>리뷰 내용</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr th:each="review : ${reviewList}">
+    <td th:text="${review.reviewWriter}">리뷰 작성자</td>
+    <td th:text="${review.reviewContent}">리뷰 내용</td>
+
+
+  </tr>
+  </tbody>
+</table>
+<p><a th:href="@{/post/{postId}(postId=${postId})}">게시물 보러가기</a></p>
+</body>
+</html>

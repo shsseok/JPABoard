@@ -7,7 +7,18 @@
 <body>
 <div class="post-container">
     <h1 class="post-title">게시물 상세 페이지</h1>
-
+    <div th:if="${postResponse.isLike}">
+        <!-- 태그가 되어 있을 때 -->
+        <a th:href="@{/like/cancel/{postId}(postId=${postResponse.postId})}">
+            <button style="background-color: red;">좋아요취소</button>
+        </a>
+    </div>
+    <div th:unless="${postResponse.isLike}">
+        <!-- 태그가 되어 있지 않을 때 -->
+        <a th:href="@{/like/{postId}(postId=${postResponse.postId})}">
+            <button style="background-color: blue;">좋아요</button>
+        </a>
+    </div>
     <!-- 게시물 내용 -->
     <div class="post-content">
 
@@ -34,6 +45,12 @@
     <!-- 홈으로 돌아가는 링크 -->
     <div class="back-link">
         <a href="/post/postlist">게시판 리스트 보기</a>
+    </div>
+    <div class="back-link">
+        <a th:href="@{/review/{postId}/add(postId=${postResponse.postId})}">리뷰 작성하러 가기</a>
+    </div>
+    <div class="back-link">
+        <a th:href="@{/review/{postId}/reviewlist(postId=${postResponse.postId})}">해당 게시판 리뷰 목록 보러가기</a>
     </div>
 </div>
 </body>

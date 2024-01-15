@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>리뷰 작성</title>
 </head>
 <body>
-$END$
+<h1>리뷰 작성 페이지</h1>
+
+<form th:action="@{'/review/' + ${postId} + '/add'}" method="post" th:object="${reviewSaveDto}">
+  <label for="content">내용:</label><br>
+  <textarea id="content" name="content" th:field="*{reviewContent}" rows="5" cols="40"></textarea><br><br>
+  <p th:if="${#fields.hasErrors('reviewContent')}" th:errors="*{reviewContent}"></p>
+  <input type="submit" value="작성하기">
+</form>
+
+<!-- 홈으로 돌아가는 링크 -->
+<p><a th:href="@{/post/{postId}(postId=${postId})}">게시물 보러가기</a></p>
 </body>
 </html>

@@ -6,7 +6,7 @@ import com.hyeon.jpaboard.domain.Member;
 import com.hyeon.jpaboard.domain.Post;
 import lombok.Data;
 
-@Data
+/*@Data
 public class LikeDto {
     private Long memberId;
     private Long postsId;
@@ -19,4 +19,4 @@ public class LikeDto {
                 .build();
     }
 
-}
+}*/

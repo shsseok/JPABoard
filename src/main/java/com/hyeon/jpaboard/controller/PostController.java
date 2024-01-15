@@ -9,6 +9,7 @@ import com.hyeon.jpaboard.service.serviceImpl.dto.request.PostUpdateDto;
 import com.hyeon.jpaboard.service.serviceImpl.dto.response.PostResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Slf4j
 public class PostController {
     private final PostService postService;
 
@@ -27,13 +29,16 @@ public class PostController {
     public String postList(Model model)
     {
         List<PostResponse> postList = postService.findPostAll();
+
+        log.info("postList={}",postList.size());
+        model.addAttribute("sortMethod","LIST");
         model.addAttribute("postList",postList);
         return "post/postList";
     }
     @GetMapping("/add")
     public String postForm(Model model)
     {
-        model.addAttribute("postForm",new PostSaveDto());
+        model.addAttribute("postSaveDto",new PostSaveDto());
         return "post/postForm";
     }
     @GetMapping("/{postId}")
@@ -84,11 +89,11 @@ public class PostController {
         return "redirect:/post/postlist";
     }
     @PostMapping("/add")
-    public String postForm(@AuthenticationPrincipal CustomMemberDetails customMemberDetails, @Valid @ModelAttribute("postForm") PostSaveDto postSaveDto , BindingResult bindingResult)
+    public String postForm(@AuthenticationPrincipal CustomMemberDetails customMemberDetails, @Valid @ModelAttribute("postSaveDto") PostSaveDto postSaveDto , BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
         {
-            return "redirect:/post/add";
+            return "/post/postForm";
         }
         if (customMemberDetails!=null)
         {
@@ -97,10 +102,14 @@ public class PostController {
 
         return "redirect:/post/postlist";
     }
-/*    @PostMapping("/postlist/search")
-    public String postForm()
+    @GetMapping("/postlist/sort")
+    public String postSortList(Model model,@RequestParam("sortMethod") String sortMethod)
     {
 
-    }*/
+        List<PostResponse> sortPostList = postService.findSortPostList(sortMethod);
+        model.addAttribute("sortMethod",sortMethod);
+        model.addAttribute("postList",sortPostList);
+        return "post/postList";
+    }
 
 }
